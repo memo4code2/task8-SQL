@@ -1,13 +1,21 @@
 -- Task 8 - Gym Database SQL Queries
 
 -- 1. اعرض أسماء كل الـ trainers الذين تخصصهم "cardio"
-SELECT name FROM trainers WHERE speciality = 'cardio';
+SELECT name ,speciality FROM trainers WHERE speciality ='cardio'; 
 
 -- 2. اعرض أسماء وتواريخ اشتراك كل الـ members اللي اشتركوا في شهر يوليو 2024
-SELECT name, subscription_date FROM members WHERE subscription_date >= '2024-07-01' AND subscription_date < '2024-08-01';
+SELECT name, start_date
+FROM members
+WHERE start_date BETWEEN '2024-07-01' AND '2024-07-31' ;
+
+
 
 -- 3. ما هي أغلى خطة اشتراك (plan) موجودة، مع سعرها؟
-SELECT name, price FROM plans WHERE price = (SELECT MAX(price) FROM plans);
+SELECT plan_name, plan_price
+FROM membership_plans
+WHERE plan_price = (SELECT MAX(plan_price) FROM membership_plans);
+
+
 
 -- 4. كام trainer لسه معندوش تخصص محدد (speciality = NULL)؟
 SELECT COUNT(*) AS total_trainers FROM trainers WHERE speciality IS NULL;
